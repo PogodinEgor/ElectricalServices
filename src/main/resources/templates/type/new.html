@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новый тип счетчика</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label, input {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+        .add-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .error {
+            color: red;
+        }
+
+        input[type="submit"] {
+            padding: 10px 20px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Новый тип счетчика</h1>
+
+<form th:method="POST" th:action="@{/type}" th:object="${typeCounter}">
+    <label for="typeName">Введите тип ссчетчика: </label>
+    <input type="text" th:field="*{typeName}" id="typeName"/>
+    <div style="color:red" th:if="${#fields.hasErrors('typeName')}" th:errors="*{typeName}">Full Name Error</div>
+    <br/>
+    <input type="submit" value="Создать"/>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</form>
+
+</body>
+</html>

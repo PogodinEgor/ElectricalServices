@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новая ПС</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        .add-button {
+            display: block;
+            width: max-content;
+            padding: 10px 20px;
+            margin: 20px auto;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label, input, div {
+            margin-bottom: 5px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #025aa5;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Новая ПС</h1>
+
+    <form th:method="POST" th:action="@{/powerstation}" th:object="${mainPowerStation}">
+        <label for="namePowerStation">Введите название ПС: </label>
+        <input type="text" th:field="*{namePowerStation}" id="namePowerStation"/>
+        <div class="error" th:if="${#fields.hasErrors('namePowerStation')}" th:errors="*{namePowerStation}"></div>
+        <br/>
+        <input type="submit" value="Создать"/>
+    </form>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новый потребитель</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label, input, div.error {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        div.error {
+            color: red;
+            font-size: 0.9em;
+        }
+        .button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Новый потребитель</h1>
+    <form th:method="POST" th:action="@{/consumer}" th:object="${energyConsumer}">
+        <label for="lastName">Введите фамилию: </label>
+        <input type="text" th:field="*{lastName}" id="lastName"/>
+        <div class="error" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}"></div>
+
+        <label for="firstName">Введите имя: </label>
+        <input type="text" th:field="*{firstName}" id="firstName"/>
+        <div class="error" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}"></div>
+
+        <label for="middleName">Введите отчество: </label>
+        <input type="text" th:field="*{middleName}" id="middleName"/>
+        <div class="error" th:if="${#fields.hasErrors('middleName')}" th:errors="*{middleName}"></div>
+
+        <label for="phoneNumber">Введите номер телефона: </label>
+        <input type="text" th:field="*{phoneNumber}" id="phoneNumber"/>
+        <div class="error" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></div>
+
+        <input type="submit" value="Создать"/>
+    </form>
+    <br/>
+    <a href="/" class="button">Вернуться на главный экран</a>
+</div>
+</body>
+</html>

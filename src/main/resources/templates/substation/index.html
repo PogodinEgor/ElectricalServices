@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список трансформаторных подстанций</title>
+    <!-- Ваши стили -->
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0275d8;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #0275d8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        input[type="text"], button {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .add-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            color: #0275d8;
+        }
+
+        .pagination li a:hover {
+            background-color: #0275d8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Список трансформаторных подстанций</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>Трансформаторная подстанция</th>
+            <th>Главная электростанция</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transformatorSubstation : ${transformatorSubstations}">
+            <td>
+                <a th:href="@{/substation/{id}(id=${transformatorSubstation.id})}"
+                   th:text="'ТП ' + ${transformatorSubstation.nameTransformatorSubstation}">
+                </a>
+            </td>
+            <td th:text="${transformatorSubstation.powerStation != null ? 'ПС ' + transformatorSubstation.powerStation.namePowerStation : 'Нет главной электростанции'}">
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Элементы управления пагинацией -->
+    <div th:if="${transformatorSubstations.totalPages > 1}">
+        <ul class="pagination">
+            <li th:each="pageNum : ${#numbers.sequence(0, transformatorSubstations.totalPages - 1)}">
+                <a th:href="@{/substation(page=${pageNum}, size=${transformatorSubstations.size})}" th:text="${pageNum + 1}">1</a>
+            </li>
+        </ul>
+    </div>
+
+    <form action="/substation/search" method="get">
+        <input type="text" name="name" placeholder="Введите название подстанции">
+        <button type="submit">Поиск</button>
+    </form>
+    <hr/>
+    <br/>
+
+    <a href="/substation/new" class="add-button">Добавить номер ТП</a>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

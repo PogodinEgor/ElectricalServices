@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новые показания</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 75%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label, input, select, div.error {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], input[type="date"], select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .error {
+            color: red;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Добавление показаний счетчика</h1>
+<form th:method="POST" th:action="@{/measurement}" th:object="${energyMeasurement}">
+    <label for="meterReadings">Введите показания: </label>
+    <input type="text" th:field="*{meterReadings}" id="meterReadings"/>
+    <div style="color:red" th:if="${#fields.hasErrors('meterReadings')}" th:errors="*{meterReadings}">Full Name Error</div>
+    <br/>
+    <label for="date">Выберете дату: </label>
+    <input type="date" th:field="*{date}" id="date"/>
+    <div style="color:red" th:if="${#fields.hasErrors('date')}" th:errors="*{date}">Error Message</div>
+    <br/>
+    <label for="comment">Примечания: </label>
+    <input type="text" th:field="*{comment}" id="comment"/>
+    <div style="color:red" th:if="${#fields.hasErrors('comment')}" th:errors="*{comment}">Full Name Error</div>
+    <br/>
+    <label for="counter"> Выберете номер счетчика:</label>
+    <select id="counter" th:field="*{counter.id}">
+        <option th:each="counter : ${allEnergyMeasurements}" th:value="${counter.id}" th:text="' Тип счетчика ' + ${counter.getCounterType().getTypeName()} + ' Номер счетчика ' + ${ counter.getSerialNumber()}  "> Выберете счетчик</option>
+    </select>
+    <input type="submit" value="Создать"/>
+</form>
+
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+
+</body>
+</html>

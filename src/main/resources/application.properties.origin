@@ -1,0 +1,14 @@
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.datasource.url=jdbc:postgresql://localhost:5432/crud_electra
+spring.datasource.username=xxxx
+spring.datasource.password=xxxx
+
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.PostgreSQLDialect
+spring.jpa.properties.hibernate.show_sql=true
+spring.jpa.generate-ddl= false
+server.port=8081
+
+spring.mvc.hiddenmethod.filter.enabled=true
+
+spring.mvc.view.prefix=/WEB-INF/jsp/
+spring.mvc.view.suffix=.jsp

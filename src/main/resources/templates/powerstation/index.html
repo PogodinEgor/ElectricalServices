@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список главных электростанций</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #eaeaea;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 75%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .powerstation-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .powerstation-list li {
+            background-color: #f9f9f9;
+            margin-bottom: 8px;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .powerstation-list li:hover {
+            background-color: #e9e9e9;
+        }
+
+        a {
+            color: #0056b3;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .add-button {
+            display: block;
+            width: max-content;
+            padding: 10px 20px;
+            margin: 20px auto;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Главные Электростанции</h1>
+
+    <ul class="powerstation-list">
+        <li th:each="mainPowerStation : ${mainPowerStations}">
+            <a th:href="@{/powerstation/{id}(id=${mainPowerStation.id})}" th:text="${mainPowerStation.namePowerStation}"></a>
+        </li>
+    </ul>
+
+    <a href="/powerstation/new" class="add-button">Добавить ПС</a>
+</div>
+<a href="/" class="add-button">Вернуться на главный экран</a>
+</body>
+</html>

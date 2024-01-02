@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Трансформаторная подстанция</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0275d8;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #0275d8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-button {
+            display: block;
+            width: max-content;
+            padding: 10px 20px;
+            margin: 20px auto;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #0275d8;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Номер подстанции</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th>ТП</th>
+            <td th:text="${transformatorSubstation.getNameTransformatorSubstation()}"></td>
+        </tr>
+        <tr>
+            <th>ПС</th>
+            <td th:text="${transformatorSubstation.powerStation != null ? transformatorSubstation.powerStation.getNamePowerStation() : 'ПС не указана'}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <br/>
+
+    <form th:method="GET" th:action="@{/substation/{id}/edit(id=${transformatorSubstation.id})}">
+        <button type="submit">Редактировать номер подстанции</button>
+    </form>
+
+    <form th:method="DELETE" th:action="@{/substation/{id}/delete(id=${transformatorSubstation.id})}">
+        <button type="submit">Удалить подстанцию</button>
+    </form>
+
+    <br/>
+
+    <h1>Список линий электропередач</h1>
+    <table>
+        <thead>
+        <tr>
+            <th>ПС</th>
+            <th>ТП</th>
+            <th>Фидер</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="powerLine : ${powerLines}">
+            <td th:text="${powerLine.substation.powerStation.namePowerStation}"></td>
+            <td th:text="${powerLine.substation != null ? powerLine.substation.nameTransformatorSubstation : 'Нет привязки к ТП'}"></td>
+            <td>
+                <a th:href="@{/powerline/{id}(id=${powerLine.id})}"
+                   th:text="'Фидер ' + ${powerLine.namePowerLine}">
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+
+    <a href="/substation" class="add-button">Вернуться к списку трансформаторных подстанций</a>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

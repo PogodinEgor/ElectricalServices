@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Линия электропередач</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #0275d8;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        button, a {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .add-button {
+            display: block;
+            width: max-content;
+            padding: 10px 20px;
+            margin: 20px auto;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        button:hover, a:hover {
+            background-color: #4cae4c;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            background-color: #0275d8;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .back-link:hover {
+            background-color: #025aa5;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Линия электропередач</h1>
+
+    <table>
+        <tbody>
+        <tr>
+            <th>Линия №</th>
+            <td th:text="${powerLine.namePowerLine}"></td>
+        </tr>
+        <tr>
+            <th>ТП</th>
+            <td th:text="${powerLine.substation.nameTransformatorSubstation}"></td>
+        </tr>
+        <tr>
+            <th>ПС</th>
+            <td th:text="${powerLine.substation.powerStation.namePowerStation}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <form th:method="GET" th:action="@{/powerline/{id}/edit(id=${powerLine.id})}">
+        <button type="submit">Редактировать фидер линии</button>
+    </form>
+
+    <form th:method="DELETE" th:action="@{/powerline/{id}/delete(id=${powerLine.id})}">
+        <button type="submit">Удалить линию</button>
+    </form>
+
+    <br/>
+    <table>
+        <thead>
+        <tr>
+            <th>№ ПУ</th>
+            <th>ФИО</th>
+            <th>Адрес</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="counter : ${energyCounters}">
+            <td>
+                <a th:href="@{/counter/{id}(id=${counter.id})}" th:text="${counter.serialNumber}"></a>
+            </td>
+            <td th:text="${counter.energyConsumer.lastName} + ' ' + ${counter.energyConsumer.firstName} + ' ' + ${counter.energyConsumer.middleName}"></td>
+            <td th:text="${counter.address}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a href="/counter/new" class="button">Добавить пу</a>
+    <br/>
+
+    <a href="/powerline" class="back-link">Вернуться к списку линий</a>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

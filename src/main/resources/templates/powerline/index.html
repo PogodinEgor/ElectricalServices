@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список линий электропередач</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #0275d8;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .add-button {
+            display: inline-block;
+            padding: 10px 15px;
+            background-color: #5cb85c;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        .add-button:hover {
+            background-color: #4cae4c;
+        }
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            color: #0275d8;
+        }
+
+        .pagination li a:hover {
+            background-color: #0275d8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Список линий электропередач</h1>
+
+    <table>
+        <thead>
+        <tr>
+            <th>ПС</th>
+            <th>ТП</th>
+            <th>Фидер</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="powerLine : ${powerLines}">
+            <td th:text="${powerLine.substation.powerStation.namePowerStation}"></td>
+            <td th:text="${powerLine.substation != null ? powerLine.substation.nameTransformatorSubstation : 'Нет привязки к ТП'}"></td>
+            <td th:text="${powerLine.namePowerLine}"></td>
+            <td>
+                <a th:href="@{/powerline/{id}(id=${powerLine.id})}">Подробнее</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Элементы управления пагинацией -->
+    <div>
+        <ul class="pagination">
+            <li th:if="${powerLines.hasPrevious()}">
+                <a th:href="@{/powerline(page=${powerLines.number - 1}, size=${powerLines.size})}">Предыдущая</a>
+            </li>
+            <li th:each="pageNum : ${#numbers.sequence(0, powerLines.totalPages - 1)}">
+                <a th:href="@{/powerline(page=${pageNum}, size=${powerLines.size})}" th:text="${pageNum + 1}">1</a>
+            </li>
+            <li th:if="${powerLines.hasNext()}">
+                <a th:href="@{/powerline(page=${powerLines.number + 1}, size=${powerLines.size})}">Следующая</a>
+            </li>
+        </ul>
+    </div>
+
+    <a href="/powerline/new" class="add-button">Добавить фидер</a>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

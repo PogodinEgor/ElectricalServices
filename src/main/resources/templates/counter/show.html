@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>CounterShow</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background-color: #eaeaea;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 75%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f9f9f9;
+        }
+
+        button, a {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        button:hover, a:hover {
+            background-color: #218838;
+        }
+
+        .action-button {
+            margin: 10px 5px 10px 0;
+        }
+
+        .action-buttons {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+        }
+
+        .back-link {
+            background-color: #0275d8;
+        }
+
+        .back-link:hover {
+            background-color: #025aa5;
+        }
+
+        .add-link {
+            background-color: #f0ad4e;
+        }
+
+        .add-link:hover {
+            background-color: #ec971f;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+<h1>Прибор учета</h1>
+
+<table>
+    <tbody>
+    <tr>
+        <th>Тип счетчика</th>
+        <td th:text="${energyCounter.counterType.getTypeName()}"></td>
+    </tr>
+    <tr>
+        <th>Номер счетчика</th>
+        <td th:text="${energyCounter.serialNumber}"></td>
+    </tr>
+    <tr>
+        <th>Год выпуска</th>
+        <td th:text="${energyCounter.manufacturingYear}"></td>
+    </tr>
+    <tr>
+        <th>Ток счетчика</th>
+        <td th:text="${energyCounter.amperage}"></td>
+    </tr>
+    <tr>
+        <th>Напряжение</th>
+        <td th:text="${energyCounter.voltage}"></td>
+    </tr>
+    <tr>
+        <th>Передаточное число</th>
+        <td th:text="${energyCounter.gearRatio}"></td>
+    </tr>
+    <tr>
+        <th>Класс точности</th>
+        <td th:text="${energyCounter.accuracyClass}"></td>
+    </tr>
+    <tr>
+        <th>Разрядность</th>
+        <td th:text="${energyCounter.bitDepth}"></td>
+    </tr>
+    <tr>
+        <th>Поверка счетчика</th>
+        <td th:text="${energyCounter.quarterVerification}"></td>
+    </tr>
+    <tr>
+        <th>Межповерочный интервал</th>
+        <td th:text="${energyCounter.calibrationInterval}"></td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+<form th:method="GET" th:action="@{/counter/{id}/edit(id=${energyCounter.id})}">
+    <button type="submit">Редактировать ПУ</button>
+</form>
+
+<form th:method="DELETE" th:action="@{/counter/{id}(id=${energyCounter.id})}">
+    <button type="submit">Удалить ПУ</button>
+</form>
+<br/>
+
+<a href="/counter">Вернуться к списку ПУ</a>
+<br/>
+
+<br/>
+<h1>Привязка ПУ</h1>
+
+<table>
+    <tbody>
+    <tr>
+        <th>ТП</th>
+        <td th:text="${energyCounter.line.substation.nameTransformatorSubstation}"></td>
+    </tr>
+    <tr>
+        <th>ПС</th>
+        <td th:text="${energyCounter.line.substation.powerStation.namePowerStation}"></td>
+    </tr>
+    <tr>
+        <th>Линия №</th>
+        <td th:text="${energyCounter.line.namePowerLine}"></td>
+    </tr>
+    <tr>
+        <th>Потребитель</th>
+        <td th:text="${energyCounter.energyConsumer.lastName} + ' ' + ${energyCounter.energyConsumer.firstName} + ' ' + ${energyCounter.energyConsumer.middleName}"></td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<h1>Показания</h1>
+<a href="/measurement/new">Занести показания</a>
+<table>
+    <thead>
+    <tr>
+        <th>Показания</th>
+        <th>Дата</th>
+        <th>Примечания</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="energyMeasurement : ${energyMeasurements}">
+        <td th:text="${energyMeasurement.meterReadings}"></td>
+        <td th:text="${energyMeasurement.date}"></td>
+        <td th:text="${energyMeasurement.comment}"></td>
+        <td>
+            <!-- Ссылки или кнопки для редактирования и удаления каждого показания -->
+            <form th:method="GET" th:action="@{/measurement/{id}/edit(id=${energyMeasurement.getId()})}">
+                <button type="submit">Редактировать показания</button>
+            </form>
+
+            <form th:method="DELETE" th:action="@{/measurement/{id}(id=${energyMeasurement.getId()})}">
+                <button type="submit">Удалить</button>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+<br/>
+
+
+<br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+<body/>
+</html>

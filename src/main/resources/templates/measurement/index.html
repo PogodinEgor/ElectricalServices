@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список показаний</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        a {
+            color: #0275d8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .add-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .add-link:hover {
+            background-color: #218838;
+        }
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            color: #0275d8;
+        }
+
+        .pagination li a:hover {
+            background-color: #0275d8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Показания счетчика</h1>
+<table>
+    <thead>
+    <tr>
+        <th>Тип счетчика</th>
+        <th>Номер счетчика</th>
+        <th>Показания</th>
+        <th>Дата съема показаний</th>
+        <th>Примечания</th>
+        <th>Действия</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="energyMeasurement : ${energyMeasurements}">
+        <td th:text="${energyMeasurement.counter.counterType.typeName}"></td>
+        <td th:text="${energyMeasurement.counter.serialNumber}"></td>
+        <td th:text="${energyMeasurement.meterReadings}"></td>
+        <td th:text="${#dates.format(energyMeasurement.date, 'dd.MM.yyyy')}"></td>
+        <td th:text="${energyMeasurement.comment}"></td>
+        <td>
+            <a th:href="@{/measurement/{id}(id=${energyMeasurement.id})}">Подробнее</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br/>
+<hr/>
+    <!-- Элементы управления пагинацией -->
+    <div>
+        <ul class="pagination">
+            <li th:if="${energyMeasurements.hasPrevious()}">
+                <a th:href="@{/measurement(page=${energyMeasurements.number - 1}, size=${energyMeasurements.size})}">Предыдущая</a>
+            </li>
+            <li th:each="pageNum : ${#numbers.sequence(0, energyMeasurements.totalPages - 1)}">
+                <a th:href="@{/measurement(page=${pageNum}, size=${energyMeasurements.size})}" th:text="${pageNum + 1}">1</a>
+            </li>
+            <li th:if="${energyMeasurements.hasNext()}">
+                <a th:href="@{/measurement(page=${energyMeasurements.number + 1}, size=${energyMeasurements.size})}">Следующая</a>
+            </li>
+        </ul>
+    </div>
+
+<a href="/measurement/new" class="add-link ">Добавить показания</a>
+    <br/>
+    <a href="/" class="add-link ">Вернуться на главный экран</a>
+</body>
+</html>

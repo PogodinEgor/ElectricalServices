@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Управление электроустановками</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #0056b3;
+        }
+
+        .button {
+            padding: 10px 20px;
+            margin-top: 10px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .button:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+<h2>Привязка приборов учета к линиям электропередач</h2>
+<form action="/powerstation" method="get">
+    <input type="submit" class="button" value="Список электроустановок">
+</form>
+
+<form action="/substation" method="get">
+    <input type="submit" class="button" value="Список трансформаторных подстанций"/>
+</form>
+
+<form action="/powerline" method="get">
+    <input type="submit" class="button" value="Cписок линий электропередач">
+</form>
+
+<form action="/counter" method="get">
+    <input type="submit" class="button" value="Список приборов учета">
+</form>
+
+<form action="/measurement" method="get">
+    <input type="submit" class="button" value="Список показаний приборов учета">
+</form>
+
+<form action="/type" method="get">
+    <input type="submit" class="button" value="Список типов счетчиков">
+</form>
+
+<form action="/consumer" method="get">
+    <input type="submit" class="button" value="Список потребителей">
+</form>
+<br/>
+<form action="/counter/search" method="get">
+    <input type="text" name="serialNumber" placeholder="Введите номер ПУ">
+    <button type="submit">Поиск</button>
+</form>
+<br/>
+<form action="/consumer/search" method="get" class="search-form">
+    <input type="text" name="lastName" placeholder="Введите фамилию">
+    <button type="submit">Поиск</button>
+</form>
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список потребителей</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .consumer-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .consumer-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .consumer-list a {
+            color: #0275d8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .consumer-list a:hover {
+            text-decoration: underline;
+        }
+
+        .search-form {
+            margin-top: 30px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .search-form input[type="text"] {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        .search-form button {
+            padding: 8px 15px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .search-form button:hover {
+            background-color: #4cae4c;
+        }
+
+        .action-link {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .action-link:hover {
+            background-color: #218838;
+        }
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            color: #0275d8;
+        }
+
+        .pagination li a:hover {
+            background-color: #0275d8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Список потребителей</h1>
+
+    <ul class="consumer-list">
+        <li th:each="energyConsumer : ${energyConsumers}">
+            <a th:href="@{/consumer/{id}(id=${energyConsumer.id})}"
+               th:text="${energyConsumer.lastName} + ' ' + ${energyConsumer.firstName} + ' ' + ${energyConsumer.middleName}">
+            </a>
+        </li>
+    </ul>
+
+    <form action="/consumer/search" method="get" class="search-form">
+        <input type="text" name="lastName" placeholder="Введите фамилию">
+        <button type="submit">Поиск</button>
+    </form>
+
+    <!-- Элементы управления пагинацией -->
+    <div>
+        <ul class="pagination">
+            <li th:if="${energyConsumers.hasPrevious()}">
+                <a th:href="@{/consumer(page=${energyConsumers.number - 1}, size=${energyConsumers.size})}">Предыдущая</a>
+            </li>
+            <li th:each="pageNum : ${#numbers.sequence(0, energyConsumers.totalPages - 1)}">
+                <a th:href="@{/consumer(page=${pageNum}, size=${energyConsumers.size})}" th:text="${pageNum + 1}">1</a>
+            </li>
+            <li th:if="${energyConsumers.hasNext()}">
+                <a th:href="@{/consumer(page=${energyConsumers.number + 1}, size=${energyConsumers.size})}">Следующая</a>
+            </li>
+        </ul>
+    </div>
+
+    <a href="/consumer" class="action-link">Вернуться к списку потребителей</a>
+    <br/>
+    <a href="/consumer/new" class="action-link">Добавить потребителя</a>
+    <br/>
+    <a href="/" class="action-link">Вернуться на главный экран</a>
+</div>
+</body>
+</html>

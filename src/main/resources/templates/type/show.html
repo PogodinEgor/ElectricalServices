@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Тип счетчика</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 60%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 18px;
+            line-height: 1.6;
+        }
+
+        span {
+            font-weight: bold;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #5cb85c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #4cae4c;
+        }
+
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0275d8;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        a:hover {
+            background-color: #025aa5;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Тип счетчика</h1>
+
+    <p>Тип счетчика<br/> <span th:text="${typeCounter.getTypeName()}"> </span></p>
+    <br/>
+    <form th:method="GET" th:action="@{/type/{id}/edit(id=${typeCounter.getId()})}">
+        <button type="submit">Редактировать тип счетчика</button>
+    </form>
+
+    <form th:method="DELETE" th:action="@{/type/{id}(id=${typeCounter.getId()})}">
+        <button type="submit">Удалить тип счетчика</button>
+    </form>
+
+
+    <a href="/type">Вернуться к списку типов</a>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новый прибор учета</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 75%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .add-button {
+            display: block;
+            width: max-content;
+            padding: 10px 20px;
+            margin: 20px auto;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        label, input, select, div {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #025aa5;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Новый прибор учета</h1>
+<form th:method="POST" th:action="@{/counter}" th:object="${energyCounter}">
+    <label for="typeName"> Выберите тип счетчика:</label>
+    <select id="typeName" th:field="*{counterType.id}">
+        <option th:each="type : ${allTypeCounters}" th:value="${type.id}" th:text="${type.getTypeName()}"> Выберете линию</option>
+    </select>
+    <br/>
+    <label for="serialNumber">Введите серийный номер: </label>
+    <input type="text" th:field="*{serialNumber}" id="serialNumber"/>
+    <div style="color:red" th:if="${#fields.hasErrors('serialNumber')}" th:errors="*{serialNumber}">Номер ПУ</div>
+    <br/>
+    <label for="manufacturingYear">Введите год выпуска счетчика: </label>
+    <input type="text" th:field="*{manufacturingYear}" id="manufacturingYear"/>
+    <div style="color:red" th:if="${#fields.hasErrors('manufacturingYear')}" th:errors="*{manufacturingYear}">Год выпуска</div>
+    <br/>
+    <label for="amperage">Введите ток счетчика: </label>
+    <input type="text" th:field="*{amperage}" id="amperage"/>
+    <div style="color:red" th:if="${#fields.hasErrors('amperage')}" th:errors="*{amperage}">Ток ПУ</div>
+    <br/>
+    <label for="voltage">Введите напряжение счетчика: </label>
+    <input type="text" th:field="*{voltage}" id="voltage"/>
+    <div style="color:red" th:if="${#fields.hasErrors('voltage')}" th:errors="*{voltage}">Напряжение ПУr</div>
+    <br/>
+    <label for="gearRatio">Введите передаточное число счетчика: </label>
+    <input type="text" th:field="*{gearRatio}" id="gearRatio"/>
+    <div style="color:red" th:if="${#fields.hasErrors('gearRatio')}" th:errors="*{gearRatio}">Передаточное число ПУ</div>
+    <br/>
+    <label for="accuracyClass">Введите класс точности счетчика: </label>
+    <input type="text" th:field="*{accuracyClass}" id="accuracyClass"/>
+    <div style="color:red" th:if="${#fields.hasErrors('accuracyClass')}" th:errors="*{accuracyClass}">Класс точности ПУ</div>
+    <br/>
+    <label for="bitDepth">Введите разрядность счетчика: </label>
+    <input type="text" th:field="*{bitDepth}" id="bitDepth"/>
+    <div style="color:red" th:if="${#fields.hasErrors('bitDepth')}" th:errors="*{bitDepth}">Разрядность ПУ</div>
+    <br/>
+    <label for="quarterVerification">Введите поверку счетчика: </label>
+    <input type="text" th:field="*{quarterVerification}" id="quarterVerification"/>
+    <div style="color:red" th:if="${#fields.hasErrors('quarterVerification')}" th:errors="*{quarterVerification}">Поверка ПУ</div>
+    <br/>
+    <label for="calibrationInterval">Введите межповерочный интервал счетчика: </label>
+    <input type="text" th:field="*{calibrationInterval}" id="calibrationInterval"/>
+    <div style="color:red" th:if="${#fields.hasErrors('calibrationInterval')}" th:errors="*{calibrationInterval}">Межповерочный интервал ПУr</div>
+    <br/>
+    <label for="address">Введите адрес: </label>
+    <input type="text" th:field="*{address}" id="address"/>
+    <div style="color:red" th:if="${#fields.hasErrors('address')}" th:errors="*{address}">address</div>
+    <br/>
+
+    <label for="powerLine"> Выберите линию:</label>
+    <select id="powerLine" th:field="*{line.id}">
+        <option th:each="line : ${allPowerLines}" th:value="${line.id}" th:text="'Фидер ' +${ line.namePowerLine} + ' ТП ' +${line.getSubstation().nameTransformatorSubstation} +' ПС ' + ${line.getSubstation().powerStation.getNamePowerStation()}"> Выберете линию</option>
+    </select>
+
+    <br/>
+
+    <label for="energyConsumer"> Выберите потребителя:</label>
+    <select id="energyConsumer" th:field="*{energyConsumer.id}">
+        <option th:each="consumer : ${allEnergyConsumers}" th:value="${consumer.id}" th:text="${consumer.lastName} + ' ' +  ${consumer.firstName} + ' ' +  ${consumer.middleName}">Выберите потребителя:</option>
+    </select>
+    <input type="submit" value="Создать"/>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</form>
+
+</body>
+</html>

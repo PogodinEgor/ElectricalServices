@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Новая линия</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+        }
+        .add-button {
+            display: block;
+            width: max-content;
+            padding: 10px 20px;
+            margin: 20px auto;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        label, input, select, div {
+            margin-bottom: 10px;
+        }
+
+        input[type="text"], select {
+            padding: 8px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            width: 100%;
+        }
+
+        input[type="submit"] {
+            padding: 10px 15px;
+            background-color: #0275d8;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #025aa5;
+        }
+
+        .error {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Создать новую линию электропередач</h1>
+
+    <form th:method="POST" th:action="@{/powerline}" th:object="${powerLine}">
+        <label for="namePowerLine">Введите название линии: </label>
+        <input type="text" th:field="*{namePowerLine}" id="namePowerLine"/>
+        <div class="error" th:if="${#fields.hasErrors('namePowerLine')}" th:errors="*{namePowerLine}"></div>
+
+        <label for="substation">Выберите ТП:</label>
+        <select id="substation" th:field="*{substation.id}">
+            <option th:each="substation : ${allTransformatorSubstations}" th:value="${substation.id}" th:text="'ТП ' + ${substation.nameTransformatorSubstation } +' ПС ' + ${substation.powerStation.getNamePowerStation()}">Выберите ТП</option>
+        </select>
+        <input type="submit" value="Создать"/>
+    </form>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>

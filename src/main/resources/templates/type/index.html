@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Список типов приборов учета</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            color: #333;
+        }
+
+        .container {
+            width: 80%;
+            margin: 40px auto;
+            padding: 20px;
+            background-color: white;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+
+        h1 {
+            color: #0056b3;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .type-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .type-list li {
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .type-list a {
+            color: #0275d8;
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .type-list a:hover {
+            text-decoration: underline;
+        }
+
+        .add-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: 600;
+            margin-top: 20px;
+        }
+
+        .add-button:hover {
+            background-color: #218838;
+        }
+        .pagination {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            padding: 0;
+        }
+
+        .pagination li {
+            margin: 0 5px;
+        }
+
+        .pagination li a {
+            text-decoration: none;
+            padding: 5px 10px;
+            border: 1px solid #ddd;
+            color: #0275d8;
+        }
+
+        .pagination li a:hover {
+            background-color: #0275d8;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>Типы счетчиков</h1>
+
+    <ul class="type-list">
+        <li th:each="typeCounter : ${typeCounters}">
+            <a th:href="@{/type/{id}(id=${typeCounter.id})}" th:text="${typeCounter.typeName}"></a>
+        </li>
+    </ul>
+
+    <!-- Элементы управления пагинацией -->
+    <div>
+        <ul class="pagination">
+            <li th:if="${typeCounters.hasPrevious()}">
+                <a th:href="@{/type(page=${typeCounters.number - 1}, size=${typeCounters.size})}">Предыдущая</a>
+            </li>
+            <li th:each="pageNum : ${#numbers.sequence(0, typeCounters.totalPages - 1)}">
+                <a th:href="@{/type(page=${pageNum}, size=${typeCounters.size})}" th:text="${pageNum + 1}">1</a>
+            </li>
+            <li th:if="${typeCounters.hasNext()}">
+                <a th:href="@{/type(page=${typeCounters.number + 1}, size=${typeCounters.size})}">Следующая</a>
+            </li>
+        </ul>
+    </div>
+
+    <a href="/type/new" class="add-button">Добавить тип счетчика</a>
+    <br/>
+    <a href="/" class="add-button">Вернуться на главный экран</a>
+</div>
+
+</body>
+</html>
