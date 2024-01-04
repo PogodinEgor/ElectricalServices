@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import pogodin_egor.CRUD_TP.models.MainPowerStation;
-import pogodin_egor.CRUD_TP.models.TransformatorSubstation;
 import pogodin_egor.CRUD_TP.services.MainPowerStationService;
 import pogodin_egor.CRUD_TP.services.TransformatorSubstationService;
 import pogodin_egor.CRUD_TP.validator.MainPowerStationValidator;
