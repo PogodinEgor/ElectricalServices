@@ -12,26 +12,53 @@
             text-align: center;
         }
 
-        h2 {
-            color: #0056b3;
+        .header {
+            display: flex;
+            justify-content: flex-end;
+            padding: 10px 20px;
+        }
+
+        .main-content {
+            padding: 20px;
+            margin-top: 20px;
         }
 
         .button {
             padding: 10px 20px;
-            margin-top: 10px;
+            margin: 10px;
             background-color: #0275d8;
             color: white;
             border: none;
             border-radius: 4px;
             cursor: pointer;
+            display: inline-block;
         }
 
         .button:hover {
             background-color: #025aa5;
         }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            background-color: #f4f4f4;
+        }
+
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            left: auto;
+            transform: translateX(0);
+        }
+
+        .logout-button:hover {
+            background-color: #c9302c;
+        }
+
     </style>
 </head>
-<body>
 <h2>Привязка приборов учета к линиям электропередач</h2>
 <form action="/powerstation" method="get">
     <input type="submit" class="button" value="Список электроустановок">
@@ -60,7 +87,18 @@
 <form action="/consumer" method="get">
     <input type="submit" class="button" value="Список потребителей">
 </form>
-<br/>
+
+<div class="header">
+    <form th:action="@{/logout}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+        <button type="submit" class="logout-button">Выход</button>
+    </form>
+</div>
+
+<form action="/admin" method="get">
+    <input type="submit" class="button" value="Список пользователей">
+</form>
+
 <form action="/counter/search" method="get">
     <input type="text" name="serialNumber" placeholder="Введите номер ПУ">
     <button type="submit">Поиск</button>
