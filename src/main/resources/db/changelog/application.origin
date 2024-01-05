@@ -1,0 +1,8 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/crud_electra
+    username: ****
+    driver-class-name: org.postgresql.Driver
+    password: ****
+  liquibase:
+    change-log: classpath:db/changelog/db.changelog-master.xml
