@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.6.xsd">
+
+    <changeSet author="1 (generated)" id="1704393793523-1">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="energy_consumer"/>
+            </not>
+        </preConditions>
+        <createTable tableName="energy_consumer">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="energy_consumer_pkey"/>
+            </column>
+            <column name="first_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="last_name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="middle_name" type="VARCHAR(255)"/>
+            <column name="phone_number" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+
+
+    <changeSet author="1 (generated)" id="1704393793523-2">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="energy_counter"/>
+            </not>
+        </preConditions>
+        <createTable tableName="energy_counter">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="energy_counter_pkey"/>
+            </column>
+            <column name="counter_type" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="manufacturing_year" type="INTEGER">
+                <constraints nullable="false"/>
+            </column>
+            <column name="serial_number" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="amperage" type="VARCHAR(255)"/>
+            <column name="voltage" type="VARCHAR(255)"/>
+            <column name="gear_ratio" type="INTEGER"/>
+            <column name="accuracy_class" type="FLOAT8"/>
+            <column name="bit_depth" type="FLOAT8"/>
+            <column name="quarter_verification" type="VARCHAR(255)"/>
+            <column name="calibration_interval" type="INTEGER"/>
+            <column name="power_line_id" type="INTEGER"/>
+            <column name="energy_consumer_id" type="INTEGER"/>
+            <column name="address" type="TEXT"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-3">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="energy_measurement"/>
+            </not>
+        </preConditions>
+        <createTable tableName="energy_measurement">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="energy_measurement_pkey"/>
+            </column>
+            <column name="meter_readings" type="FLOAT8"/>
+            <column name="date" type="date"/>
+            <column name="comment" type="VARCHAR(255)"/>
+            <column name="energy_counter_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+
+
+
+    <changeSet author="1 (generated)" id="1704393793523-4">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="main_power_station"/>
+            </not>
+        </preConditions>
+        <createTable tableName="main_power_station">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="main_power_station_pkey"/>
+            </column>
+            <column name="name_power_station" type="VARCHAR(50)"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-5">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="person"/>
+            </not>
+        </preConditions>
+        <createTable tableName="person">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="person_pkey"/>
+            </column>
+            <column name="login" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-6">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="power_line"/>
+            </not>
+        </preConditions>
+        <createTable tableName="power_line">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="power_line_pkey"/>
+            </column>
+            <column name="name_power_line" type="VARCHAR(255)"/>
+            <column name="transformator_substation_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-7">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="transformator_substation"/>
+            </not>
+        </preConditions>
+        <createTable tableName="transformator_substation">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="transformator_substation_pkey"/>
+            </column>
+            <column name="name_transformator_substation" type="VARCHAR(50)"/>
+            <column name="main_power_station_id" type="INTEGER"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-8">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="type_counter"/>
+            </not>
+        </preConditions>
+        <createTable tableName="type_counter">
+            <column autoIncrement="true" name="id" type="INTEGER">
+                <constraints nullable="false" primaryKey="true" primaryKeyName="type_counter_pkey"/>
+            </column>
+            <column name="type_name" type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-9">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="energy_counter_energy_consumer_id_fkey"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="energy_consumer_id" baseTableName="energy_counter" constraintName="energy_counter_energy_consumer_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="SET NULL" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="energy_consumer" validate="true"/>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-10">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="energy_counter_power_line_id_fkey"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="power_line_id" baseTableName="energy_counter" constraintName="energy_counter_power_line_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="SET NULL" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="power_line" validate="true"/>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-11">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="energy_measurement_energy_counter_id_fkey"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="energy_counter_id" baseTableName="energy_measurement" constraintName="energy_measurement_energy_counter_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="energy_counter" validate="true"/>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-12">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="fk_type_counter"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="counter_type" baseTableName="energy_counter" constraintName="fk_type_counter" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="type_counter" validate="true"/>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-13">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="power_line_transformator_substation_id_fkey"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="transformator_substation_id" baseTableName="power_line" constraintName="power_line_transformator_substation_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="SET NULL" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="transformator_substation" validate="true"/>
+    </changeSet>
+
+    <changeSet author="1 (generated)" id="1704393793523-14">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <foreignKeyConstraintExists foreignKeyName="transformator_substation_main_power_station_id_fkey"/>
+            </not>
+        </preConditions>
+        <addForeignKeyConstraint baseColumnNames="main_power_station_id" baseTableName="transformator_substation" constraintName="transformator_substation_main_power_station_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="SET NULL" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableName="main_power_station" validate="true"/>
+    </changeSet>
+
+</databaseChangeLog>
