@@ -42,11 +42,6 @@ public class EnergyMeasurementController {
         return "measurement/index"; // Имя вашего шаблона Thymeleaf
     }
 
-//    @GetMapping
-//    public String index(Model model) {
-//        model.addAttribute("energyMeasurements", energyMeasurementService.findAll());
-//        return "measurement/index";
-//    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") long id, Model model) {

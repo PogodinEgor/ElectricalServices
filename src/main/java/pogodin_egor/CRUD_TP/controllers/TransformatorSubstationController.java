@@ -41,11 +41,6 @@ public class TransformatorSubstationController {
         model.addAttribute("transformatorSubstations", substationsPage);
         return "substation/index"; // Имя вашего шаблона Thymeleaf
     }
-//    @GetMapping
-//    public String index(Model model) {
-//        model.addAttribute("transformatorSubstations", transformatorSubstationService.findAll());
-//        return "substation/index";
-//    }
 
     @GetMapping("/search")
     public String searchByName(@RequestParam("name") String name, Model model) {

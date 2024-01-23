@@ -48,14 +48,6 @@ public class EnergyCounterController {
         return "counter/index"; // Имя вашего шаблона Thymeleaf
     }
 
-
-//    @GetMapping
-//    public String index(Model model) {
-//        model.addAttribute("energyCounters", energyCounterService.findAll()
-//                .stream().sorted((n1, n2) -> n1.getSerialNumber().compareTo(n2.getSerialNumber())).collect(Collectors.toList()));
-//        return "counter/index";
-//    }
-
     @ModelAttribute("allTypeCounters")
     public List<TypeCounter> populateTypeCounters() {return typeCounterService.findAll();}
 

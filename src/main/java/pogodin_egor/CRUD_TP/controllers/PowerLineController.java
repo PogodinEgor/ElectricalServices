@@ -52,13 +52,6 @@ public class PowerLineController {
         return "powerline/index"; // Имя вашего шаблона Thymeleaf
     }
 
-//    @GetMapping
-//    public String index(Model model) {
-//        model.addAttribute("powerLines", powerLineService.findAll().
-//                stream().
-//                sorted((n1, n2)-> n1.getSubstation().getPowerStation().getNamePowerStation().compareTo(n2.getSubstation().getPowerStation().getNamePowerStation())).collect(Collectors.toList()));
-//        return "powerline/index";
-//    }
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") long id, Model model) {
@@ -66,19 +59,6 @@ public class PowerLineController {
         model.addAttribute("energyCounters", powerLineService.findOne(id).getEnergyCounterList());
         return "powerline/show";
     }
-//    @GetMapping("/{id}")
-//    public String show(@PathVariable("id") long id,
-//                       Model model,
-//                       @RequestParam(value = "page", defaultValue = "0") int page,
-//                       @RequestParam(value = "size", defaultValue = "5") int size) {
-//        PowerLine powerLine = powerLineService.findOne(id);
-//        Page<EnergyCounter> countersPage = energyCounterService.findByLine(powerLine, (Pageable) PageRequest.of(page, size));
-//
-//        model.addAttribute("powerLine", powerLine);
-//        model.addAttribute("countersPage", countersPage);
-//
-//        return "powerline/show";
-//    }
 
     @GetMapping("/new")
     public String newPowerLine(@ModelAttribute("powerLine") PowerLine powerLine) {

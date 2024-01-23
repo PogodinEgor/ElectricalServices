@@ -12,17 +12,5 @@ public class HomeController {
     public String index() {
         return "index";
     }
-//    @GetMapping("/**")
-//    public ModelAndView defaultPage(@AuthenticationPrincipal UserDetails user){
-//        ModelAndView nextPage = new ModelAndView("index");
-//        nextPage.addObject("user",user);
-//        return nextPage;
-//    }
 
-//    @GetMapping("/admin")
-//    public ModelAndView rolePage(@AuthenticationPrincipal UserDetails user) {
-//        ModelAndView nextPage = new ModelAndView("admin");
-//        nextPage.addObject("user", user);
-//        return nextPage;
-//    }
 }

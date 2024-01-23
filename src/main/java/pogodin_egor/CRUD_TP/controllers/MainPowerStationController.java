@@ -42,18 +42,6 @@ public class MainPowerStationController {
         model.addAttribute("transformatorSubstations", mainPowerStationService.findOne(id).getTransformatorSubstationList());
         return "powerstation/show";
     }
-//    @GetMapping("/{id}")
-//    public String show(@PathVariable("id") long id, Model model,
-//                       @RequestParam(value = "page", defaultValue = "0") int page,
-//                       @RequestParam(value = "size", defaultValue = "10") int size) {
-//        MainPowerStation mainPowerStation = mainPowerStationService.findOne(id);
-//        Page<TransformatorSubstation> substationsPage = transformatorSubstationService
-//                .findAll(mainPowerStation, PageRequest.of(page, size));
-//
-//        model.addAttribute("mainPowerStation", mainPowerStation );
-//        model.addAttribute("transformatorSubstations", substationsPage);
-//        return "powerstation/show";
-//    }
 
     @GetMapping("/new")
     public String newPowerStation(@ModelAttribute("mainPowerStation") MainPowerStation mainPowerStation) {

@@ -33,13 +33,9 @@ public class EnergyConsumerConroller {
                         @RequestParam(value = "size", defaultValue = "20") int size) {
         Page<EnergyConsumer> substationsPage = energyConsumerService.findAll(page, size);
         model.addAttribute("energyConsumers", substationsPage);
-        return "consumer/index"; // Имя вашего шаблона Thymeleaf
+        return "consumer/index";
     }
-//    @GetMapping
-//    public String index(Model model){
-//        model.addAttribute("energyConsumers",energyConsumerService.findAll().stream().sorted((c1, c2) -> c1.getLastName().compareTo(c2.getLastName())));
-//        return "consumer/index";
-//    }
+
 
     @GetMapping("/search")
     public String searchByName(@RequestParam("lastName") String lastName, Model model,

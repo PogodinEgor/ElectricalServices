@@ -33,11 +33,7 @@ public class TypeCounterController {
         model.addAttribute("typeCounters", substationsPage);
         return "type/index"; // Имя вашего шаблона Thymeleaf
     }
-//    @GetMapping
-//    public String index(Model model) {
-//        model.addAttribute("typeCounters", typeCounterService.findAll());
-//        return "type/index";
-//    }
+
 
     @GetMapping("/{id}")
     public String show(@PathVariable("id") long id, Model model) {
