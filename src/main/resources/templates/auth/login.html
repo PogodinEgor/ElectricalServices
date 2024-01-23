@@ -65,6 +65,7 @@
 <body>
 <div class="login-container">
     <h2>Аутентификация пользователя</h2>
+
     <form th:action="@{/process_login}" method="post">
         <div>
             <label for="username">Введите логин:</label>
@@ -78,6 +79,10 @@
         <div>
             <button type="submit">Log In</button>
         </div>
+        <th:block th:if="${loginError}">
+            <div style="color: red;">Введен неверный логин или пароль.</div>
+        </th:block>
+
     </form>
 </div>
 </body>

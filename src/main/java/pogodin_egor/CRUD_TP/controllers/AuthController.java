@@ -6,15 +6,20 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/auth")
 public class AuthController {
 
     @GetMapping("/login")
-    public String getLoginPage(){
+    public String getLoginPage(@RequestParam (value = "error", required = false) String error, Model model){
+        if(error != null){
+            model.addAttribute("loginError", true);
+        }
         return"auth/login";
     }
 
