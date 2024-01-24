@@ -50,5 +50,6 @@ public class MainPowerStationService {
     @Transactional
     public void delete(long id) {
         mainPowerStationRepository.deleteById(id);
+        System.out.println("Удаляем ПС в сервисе");
     }
 }

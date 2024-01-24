@@ -90,7 +90,7 @@
         <button type="submit">Редактировать ПС</button>
     </form>
 
-    <form th:method="DELETE" th:action="@{/powerstation/{id}/delete(id=${mainPowerStation.id})}">
+    <form th:method="DELETE" th:action="@{/powerstation/{id}(id=${mainPowerStation.id})}">
         <button type="submit">Удалить ПС</button>
     </form>
     <br/>

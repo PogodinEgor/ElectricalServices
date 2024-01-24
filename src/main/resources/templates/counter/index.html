@@ -129,8 +129,8 @@
         <tr th:each="energyCounter : ${energyCounters}">
             <td><a th:href="@{/counter/{id}(id=${energyCounter.id})}" th:text="${energyCounter.serialNumber}"></a></td>
             <td th:text="${energyCounter.getCounterType().typeName}"></td>
-            <td th:text="${energyCounter.line.substation.powerStation != null ? energyCounter.line.substation.powerStation.namePowerStation : 'Нет привязки к ПС'}"></td>
-            <td th:text="${energyCounter.line.substation != null ? energyCounter.line.substation.nameTransformatorSubstation : 'Нет привязки к ТП'}"></td>
+            <td th:text="${energyCounter.line?.substation?.powerStation != null ? energyCounter.line.substation.powerStation.namePowerStation : 'Нет привязки к ПС'}"></td>
+            <td th:text="${energyCounter.line?.substation != null ? energyCounter.line.substation.nameTransformatorSubstation : 'Нет привязки к ТП'}"></td>
             <td th:text="${energyCounter.line != null ? energyCounter.line.namePowerLine : 'Нет привязки к фидеру'}"></td>
         </tr>
         </tbody>

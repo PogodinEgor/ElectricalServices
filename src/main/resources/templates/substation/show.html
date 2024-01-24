@@ -111,7 +111,7 @@
         <button type="submit">Редактировать номер подстанции</button>
     </form>
 
-    <form th:method="DELETE" th:action="@{/substation/{id}/delete(id=${transformatorSubstation.id})}">
+    <form th:method="DELETE" th:action="@{/substation/{id}(id=${transformatorSubstation.id})}">
         <button type="submit">Удалить подстанцию</button>
     </form>
 

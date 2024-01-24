@@ -128,7 +128,7 @@
 
     <label for="powerLine"> Выберите линию:</label>
     <select id="powerLine" th:field="*{line.id}">
-        <option th:each="line : ${allPowerLines}" th:value="${line.id}" th:text="'Фидер ' +${ line.namePowerLine} + ' ТП ' +${line.getSubstation().nameTransformatorSubstation} +' ПС ' + ${line.getSubstation().powerStation.getNamePowerStation()}"> Выберете линию</option>
+        <option th:each="line : ${allPowerLines}" th:value="${line.id}" th:text="${ line.namePowerLine != null ? 'Фидер ' + line.namePowerLine : 'Фидер не назначен'}  +${line.getSubstation()?.nameTransformatorSubstation != null ? ' ТП ' + line.getSubstation().nameTransformatorSubstation : 'ТП не назначенна'} +  ${line.getSubstation()?.powerStation?.getNamePowerStation() != null ? ' ПС ' + line.getSubstation().powerStation.getNamePowerStation() : 'ПС не назначенна'}"> Выберете линию</option>
     </select>
 
     <br/>

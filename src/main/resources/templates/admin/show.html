@@ -92,7 +92,7 @@
         <button type="submit">Редактировать пользователя</button>
     </form>
 
-    <form th:method="DELETE" th:action="@{/admin/{id}/delete(id=${person.id})}">
+    <form th:method="DELETE" th:action="@{/admin/{id}(id=${person.id})}">
         <button type="submit">Удалить пользователя</button>
     </form>
     <br/>

@@ -77,17 +77,6 @@ public class EnergyCounterController {
         model.addAttribute("energyMeasurements", energyCounterService.findOne(id).getEnergyMeasurements());
         return "counter/show";
     }
-//    @GetMapping("{id}")
-//    public String show(@PathVariable("id") long id, Model model,
-//                       @RequestParam(value = "page", defaultValue = "0") int page,
-//                       @RequestParam(value = "size", defaultValue = "5") int size) {
-//
-//        model.addAttribute("energyCounter", energyCounterService.findOne(id));
-//        Page<EnergyCounter> countersPage = energyCounterService.findByEnergyMeasurements(id, PageRequest.of(page, size));
-//        model.addAttribute("energyMeasurements", countersPage);
-//        return "consumer/show";
-//    }
-
     @GetMapping("/new")
     public String newCounter(@ModelAttribute("energyCounter") EnergyCounter energyCounter) {
         return "counter/new";

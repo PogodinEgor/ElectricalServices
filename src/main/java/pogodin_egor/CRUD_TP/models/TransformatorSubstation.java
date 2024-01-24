@@ -22,7 +22,7 @@ public class TransformatorSubstation {
     @NotEmpty(message = "Поле не должно быть пустым")
     private String nameTransformatorSubstation;
 
-    @ManyToOne(cascade = CascadeType.MERGE,optional = true)
+    @ManyToOne
     @JoinColumn(name = "main_power_station_id",referencedColumnName = "id")
     private MainPowerStation powerStation;
 

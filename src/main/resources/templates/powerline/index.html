@@ -97,7 +97,7 @@
         </thead>
         <tbody>
         <tr th:each="powerLine : ${powerLines}">
-            <td th:text="${powerLine.substation.powerStation.namePowerStation}"></td>
+            <td th:text="${powerLine.substation?.powerStation?.namePowerStation != null ? powerLine.substation.powerStation.namePowerStation : 'Нет привязки к ПС' }"></td>
             <td th:text="${powerLine.substation != null ? powerLine.substation.nameTransformatorSubstation : 'Нет привязки к ТП'}"></td>
             <td th:text="${powerLine.namePowerLine}"></td>
             <td>

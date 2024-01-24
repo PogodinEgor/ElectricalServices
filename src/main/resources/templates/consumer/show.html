@@ -104,7 +104,7 @@
         <button type="submit">Редактировать данные потребителя</button>
     </form>
 
-    <form th:method="DELETE" th:action="@{/consumer/{id}/delete(id=${energyConsumer.id})}">
+    <form th:method="DELETE" th:action="@{/consumer/{id}(id=${energyConsumer.id})}">
         <button type="submit">Удалить потребителя</button>
     </form>
 

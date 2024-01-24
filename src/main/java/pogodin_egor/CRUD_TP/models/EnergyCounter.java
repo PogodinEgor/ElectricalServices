@@ -5,6 +5,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 
@@ -52,14 +53,14 @@ public class EnergyCounter {
     @Column(name = "calibration_interval")
     private Integer calibrationInterval;
 
-    @ManyToOne(cascade = CascadeType.MERGE,optional = true)
+    @ManyToOne
     @JoinColumn(name = "power_line_id", referencedColumnName = "id")
     private PowerLine line;
 
     @OneToMany(mappedBy = "counter", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
     private List <EnergyMeasurement> energyMeasurements;
 
-    @ManyToOne(cascade = CascadeType.MERGE,optional = true)
+    @ManyToOne
     @JoinColumn(name = "energy_consumer_id", referencedColumnName = "id")
     private EnergyConsumer energyConsumer;
 
