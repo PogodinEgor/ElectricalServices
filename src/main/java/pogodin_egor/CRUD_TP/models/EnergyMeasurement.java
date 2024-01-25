@@ -24,6 +24,7 @@ public class EnergyMeasurement {
     private Double meterReadings;
 
     @Column(name = "date")
+    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date date;
 
