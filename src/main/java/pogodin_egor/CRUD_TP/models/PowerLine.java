@@ -20,10 +20,10 @@ public class PowerLine {
     @Column(name = "name_power_line")
     private String namePowerLine;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "transformator_substation_id", referencedColumnName = "id")
     private TransformatorSubstation substation;
 
-    @OneToMany(mappedBy = "line", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "line", cascade = CascadeType.MERGE)
     private List <EnergyCounter> energyCounterList;
 }

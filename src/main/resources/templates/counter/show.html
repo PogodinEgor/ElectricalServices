@@ -158,19 +158,21 @@
     <tbody>
     <tr>
         <th>ТП</th>
-        <td th:text="${energyCounter.line.substation.nameTransformatorSubstation != null ? energyCounter.line.substation.nameTransformatorSubstation : 'Нет привязки к ТП' }"></td>
+        <td th:text="${energyCounter.line?.substation?.nameTransformatorSubstation != null ? energyCounter.line.substation.nameTransformatorSubstation : 'Нет привязки к ТП' }"></td>
     </tr>
     <tr>
         <th>ПС</th>
-        <td th:text="${energyCounter.line.substation.powerStation.namePowerStation != null ? energyCounter.line.substation.powerStation.namePowerStation : 'Нет привязки к ПС'}"></td>
+        <td th:text="${energyCounter.line?.substation?.powerStation?.namePowerStation != null ? energyCounter.line.substation.powerStation.namePowerStation : 'Нет привязки к ПС'}"></td>
     </tr>
     <tr>
         <th>Линия №</th>
-        <td th:text="${energyCounter.line.namePowerLine != null ? energyCounter.line.namePowerLine : 'Нет привязки к линии электропередач'}"></td>
+        <td th:text="${energyCounter.line?.namePowerLine != null ? energyCounter.line.namePowerLine : 'Нет привязки к линии электропередач'}"></td>
     </tr>
     <tr>
         <th>Потребитель</th>
-        <td th:text="${energyCounter.energyConsumer.lastName != null ? energyCounter.energyConsumer.lastName : 'Не назначенна фамилия'} + ' ' + ${energyCounter.energyConsumer.firstName != null ? energyCounter.energyConsumer.firstName : ' Не назначенно имя'} + ' ' + ${energyCounter.energyConsumer.middleName != null ? energyCounter.energyConsumer.middleName : 'Не назначенно отчество'}"></td>
+        <td th:text="${energyCounter.energyConsumer?.lastName != null ? energyCounter.energyConsumer?.lastName : 'Не назначенна фамилия'} + ' ' +
+        ${energyCounter.energyConsumer?.firstName != null ? energyCounter.energyConsumer?.firstName : ' Не назначенно имя'} + ' ' +
+        ${energyCounter.energyConsumer?.middleName != null ? energyCounter.energyConsumer.middleName : 'Не назначенно отчество'}"></td>
     </tr>
     </tbody>
 </table>
@@ -192,6 +194,7 @@
         <td th:text="${energyMeasurement.date}"></td>
         <td th:text="${energyMeasurement.comment}"></td>
         <td>
+
             <!-- Ссылки или кнопки для редактирования и удаления каждого показания -->
             <form th:method="GET" th:action="@{/measurement/{id}/edit(id=${energyMeasurement.getId()})}">
                 <button type="submit">Редактировать показания</button>
@@ -204,7 +207,6 @@
     </tr>
     </tbody>
 </table>
-
 <br/>
 
 

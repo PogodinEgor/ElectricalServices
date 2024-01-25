@@ -22,10 +22,10 @@ public class TransformatorSubstation {
     @NotEmpty(message = "Поле не должно быть пустым")
     private String nameTransformatorSubstation;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "main_power_station_id",referencedColumnName = "id")
     private MainPowerStation powerStation;
 
-    @OneToMany(mappedBy = "substation", cascade = CascadeType.MERGE, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "substation", cascade = CascadeType.MERGE)
     private List<PowerLine> powerLineList;
 }

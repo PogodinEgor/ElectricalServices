@@ -30,7 +30,7 @@ public class EnergyMeasurement {
     @Column(name = "comment")
     private String comment;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "energy_counter_id", referencedColumnName = "id")
     private EnergyCounter counter;
 }

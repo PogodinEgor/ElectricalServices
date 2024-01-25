@@ -32,7 +32,7 @@ public class EnergyConsumer {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @OneToMany(mappedBy = "energyConsumer", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "energyConsumer", cascade = CascadeType.MERGE)
     private List <EnergyCounter> counterList;
 
 

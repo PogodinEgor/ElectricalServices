@@ -20,7 +20,7 @@ public class EnergyCounter {
     @Column(name = "id")
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.MERGE)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "counter_type", referencedColumnName = "id")
     private TypeCounter counterType;
 
@@ -53,14 +53,14 @@ public class EnergyCounter {
     @Column(name = "calibration_interval")
     private Integer calibrationInterval;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "power_line_id", referencedColumnName = "id")
     private PowerLine line;
 
-    @OneToMany(mappedBy = "counter", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "counter", cascade = CascadeType.MERGE)
     private List <EnergyMeasurement> energyMeasurements;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "energy_consumer_id", referencedColumnName = "id")
     private EnergyConsumer energyConsumer;
 

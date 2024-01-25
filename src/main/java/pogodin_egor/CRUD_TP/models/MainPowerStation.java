@@ -22,7 +22,7 @@ public class MainPowerStation {
     @Column(name = "name_power_station")
     private String namePowerStation;
 
-    @OneToMany(mappedBy = "powerStation", cascade = CascadeType.MERGE, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "powerStation", cascade = CascadeType.MERGE)
     private List <TransformatorSubstation> transformatorSubstationList = new ArrayList<>();
 
 }
